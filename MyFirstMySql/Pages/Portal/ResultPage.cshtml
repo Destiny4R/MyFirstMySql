@@ -1,0 +1,279 @@
+﻿@page
+@model MyFirstMySql.Pages.Portal.ResultPageModel
+@{
+    Layout = null;
+    double totalscore = 0;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>SCHOOL RESULT || VERIFICATION PAGE</title>
+    <link href="~/css/site.css" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <div class="container-fluid" style="font-family:Georgia, 'Times New Roman', Times, serif; font-size:small;">
+            <table width="100%">
+                <tr>
+                    <td width="30%"></td>
+                    <td>
+                    <img src="~/assets/images/Logo/joybadge.png" height="150px" width="200" class="img-thumpnail" />
+                    </td>
+                    <td width="30%">
+                    <img src="@Model.remark.TermregistrationTable.ApplicationUser.Passport" width="150" height="150px" class="img-thumpnail" />
+                    </td>
+                </tr>
+            </table>
+        <br>
+        <div class="text-center text-uppercase h6 text-dark"><strong>joy sec. sch., adikpo</strong></div>
+        <div class="h8">
+            <div class="d-flex justify-content-between getborder" style="border-color:black; border:solid 2px;">
+                <div class="">&ensp;TERM:&ensp;<b>@Model.remark.TermregistrationTable.Term</b>&ensp;</div>
+                <div class="">&ensp;TERM ENDING:&ensp;<b>@Model.ClassGeneral.TermEnd.ToLongDateString()</b>&ensp;</div>
+                <div class="">&ensp;NEXT TERM BEGINS: &ensp; <b>@Model.ClassGeneral.NextTermStart.ToLongDateString()</b>&ensp;</div>
+            </div>
+            <div class="getborder" style="border-color:black; border:solid 2px;">
+                <div class="col-4">&ensp;NAME OF STUDENT:&ensp; <b>@Model.remark.TermregistrationTable.ApplicationUser.SurName &ensp;@Model.remark.TermregistrationTable.ApplicationUser.OtherName &ensp; @Model.remark.TermregistrationTable.ApplicationUser.FirstName</b>&ensp; </div>
+            </div>
+            <div class="d-flex justify-content-between" style="border-color:black; border:solid 2px;">
+                <div class="">&ensp;CLASS: &ensp;<b>@Model.remark.TermregistrationTable.ClassesInSchool.ClassName &ensp; @Model.remark.TermregistrationTable.SubClasses.ClassName</b>&ensp;</div>
+                <div class="">DIRTH OF BIRTH:&ensp; <b class="">@Model.remark.TermregistrationTable.ApplicationUser.DateOfBirth.ToShortDateString()</b></div>
+                <div class="">&ensp;AVERAGE AGE OF CLASS: &ensp;<b>@Model.TotalAVERAGE2</b>&ensp;</div>
+            </div>
+            <div class="d-flex justify-content-between" style="border-color:black; border:solid 2px;">
+                <div class="">&ensp;TOTAL ATTENDANCE: &ensp;<b>@Model.ClassGeneral.TotalAttendance</b>&ensp;</div>
+                <div class="">&ensp;STUDENT ATTENDANCE:&ensp; <b class="">@Model.remark.Student_Attendance</b>&ensp;</div>
+                <div class="">&ensp;DAYS ABSENT: @Model.remark.Absent &ensp;<b></b></div>
+            </div>
+            <div class="" style="border-color:black; border:solid 2px;">
+                <div class="">&ensp;FORM MASTER/MISTRESS NAME:&ensp; <b>@Model.ClassGeneral.ClassTeacher</b>&ensp;</div>
+            </div>
+
+        </div>
+        <br />
+        <table class="table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th rowspan="1"></th>
+                    <th rowspan="1"></th>
+                    <th colspan="9" class="text-center">EXAMINATION</th>
+                </tr>
+                <tr>
+                    <th rowspan="2" class="h6 text-center">Subject</th>
+                    <th rowspan="2" class="h6 text-center">Max. Marks Obt</th>
+                    <th colspan="4" class="text-center h6">Continuous Assessment</th>
+
+                </tr>
+                <tr class="text-center">
+                    <th class="h6">1st</th>
+                    <th class="h6">2nd</th>
+                    <th class="h6">3rd</th>
+                    <th class="h6">Total</th>
+                    <th class="h6">Exams</th>
+                    <th class="h6">Total</th>
+                    <th class="h6">position</th>
+                    <th class="h6">Grade</th>
+                    <th class="h5">Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.result)
+                {
+                    <tr class="text-center">
+                        <td>@item.Subjects.Name</td>
+                        <td>100</td>
+                        <td>@item.Assessment1</td>
+                        <td>@item.Assessment2</td>
+                        <td>@item.Test</td>
+                        <td>
+                            @{
+                                var h = item.Assessment1 + item.Assessment2 + item.Test;
+                                totalscore += item.Total;
+                            }
+                            @h &ensp;
+                        </td>
+                        <td>@item.Examination</td>
+                        <td>@item.Total</td>
+                        <td>@item.Position</td>
+                        <td>@item.Grade</td>
+                        <td>@item.Remark</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="mt-2">
+            <div class="d-flex justify-content-between mt-0" style="border-color:black; border:solid 2px;">
+                <div class="">&ensp; Total Marks Obtainable:&ensp;<b>@Model.TotalMarkObtainable</b></div>
+                <div class=""> Total Marks Obtained: &ensp;<b>@totalscore</b></div>
+                <div class=""> Total Average Score:&ensp; <b>@Model.TotalAVERAGESCORE</b>&ensp;</div>
+            </div>
+            <div class="text-left mt-1">
+                <p class="h6">
+                    Position in Class:&ensp;<b style="font-style:italic;">
+                        @{
+                            string va;
+                            if (Model.remark.Position_In_Class == "1")
+                            {
+                                va = "st";
+                            }
+                            else if (Model.remark.Position_In_Class == "2")
+                            {
+                                va = "nd";
+                            }
+                            else if (Model.remark.Position_In_Class == "3")
+                            {
+                                va = "rd";
+                            }
+                            else
+                            {
+                                va = "th";
+                            }
+                        }
+                        @Model.remark.Position_In_Class<sup>@va</sup>
+                    </b>
+                </p>
+            </div>
+            <div class="">
+                <table >
+                    <tr>
+                        <td>
+                            <div class="text-center">
+                                <label class="h6">GENERAL REMARKS</label>
+                            </div>
+                            <div class="text-center">
+                                <label class="text-center h7 text-danger">FORM MASTER'S/MISTRESS REMARKS</label>
+                                <br />
+                                <label class="text-center">
+                                    
+                                    @if (Model.remark.General_Remark == null || Model.remark.General_Remark == "")
+                                    {
+                                        SD.Remark(Model.remarkable);
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(Model.remark.General_Remark)
+                                    }
+                                </label>
+                            </div>
+                            <div class="text-center">
+                                <labe class="text-center text-danger h7">PRINCIPAL'S REMARKS</labe><br />
+                                <label class="text-center">
+                                    @if (Model.remark.Principal_Remark == null || Model.remark.Principal_Remark == "")
+                                    {
+                                        SD.Remark(Model.remarkable);
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(Model.remark.Principal_Remark)
+                                    }
+                                    
+                                </label>
+                            </div>
+                            <div class="form-group mb-1">
+                                <div class="">&ensp; NEXT TERM SCHOOL FEES: &ensp; <label>N @Model.ClassGeneral.Next_Term_Fees</label></div>
+                            </div>
+                            <div>
+                                @if (Model.remark.TermregistrationTable.Term == "Third")
+                                {
+                                    @if (Model.promotionalAverage > 59)
+                                    {
+                                        <b class="h5">Promotional Message: </b>
+                                        <code style="font-style:italic; font-family:SimSun;" class="h6">Congratulation! you have qualified to be promoted to the next class. <b>Score: @Model.promotionalAverage %</b></code>
+                                    }
+                                    else
+                                    {
+                                        <b class="h5">Promotional Message: </b>
+                                        <code class="h6" style="font-style:italic; font-family:SimSun;">Sorry, you have not qualified to be promoted to the next class, the School strongly advice you to repeat. <b>Score: @Model.promotionalAverage %</b></code>
+                                    }
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <table class="table-bordered">
+                                <tr>
+                                    <td colspan="2"><strong>EFFECTIVE DEVELOP</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>Attentiveness:</th>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <th>Attendance:</th>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <th>Punctuality:</th>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <th>Neatness:</th>
+                                    <td>4</td>
+                                </tr><tr>
+                                    <th>Politeness:</th>
+                                    <td>4</td>
+                                </tr><tr>
+                                    <th>Self-Control:</th>
+                                    <td>3</td>
+                                </tr><tr>
+                                    <th>Relationship:</th>
+                                    <td>3</td>
+                                </tr><tr>
+                                    <th>Curiosity:</th>
+                                    <td>3</td>
+                                </tr><tr>
+                                    <th>Honesty:</th>
+                                    <td>4</td>
+                                </tr><tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table class ="table-bordered">
+                                <tr>
+                                    <th>Humility:</th>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <th>Tolanrance:</th>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <th>Courage:</th>
+                                    <td>4</td>
+                                </tr>
+                                <tr><td colspan="2"><strong>PSYCHOMOTOR SKILLS</strong></td></tr>
+                                <tr>
+                                    <th>Handwriting:</th>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <th>Fluecy:</th>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <th>Game/Sports:</th>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <th>Gymnastics:</th>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <th>Musics Skills:</th>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <th>Constrution:</th>
+                                    <td>3</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>           
+        </div>
+    </div>
+</body>
+</html>

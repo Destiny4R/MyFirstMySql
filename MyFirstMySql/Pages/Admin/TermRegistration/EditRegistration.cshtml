@@ -1,0 +1,84 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.TermRegistration.EditRegistrationModel
+@{
+    ViewData["Title"] = "Edit Term Registration";
+}
+<form method="post">
+    <div class="container-fluid  mt-2">
+        <div class="h3 text-center">EDIT STUDENT TERM REGISTRATION</div>
+        <hr />
+        <div>
+            <input asp-for="Termreg.Id" hidden />
+            <input asp-for="Termreg.ApplicationUserId" hidden />
+            <div class="form-group row">
+                <label asp-for="Termreg.Term" class="col-form-label col-md-3"></label>
+                <div class="col-md-7">
+                    <select asp-for="Termreg.Term" class="form-control form-control-sm custom-select d-block w-100">
+                        <option value="" disabled selected>---Select Term---</option>
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </select>
+                    <span asp-validation-for="Termreg.Term" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="Termreg.SessionYearId" class="col-form-label col-sm-3">Session/Year</label>
+                <div class="col-sm-7">
+                    <select class="form-control custom-select form-control-sm d-block w-100" asp-for="Termreg.SessionYearId" asp-items="@Model.ViewSelectModel.SessionYearz">
+                        <option disabled selected>---Select Session/Year---</option>
+                    </select>
+                    <span asp-validation-for="Termreg.SessionYearId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="Termreg.ClassesInSchoolId" class="col-3 col-form-label"></label>
+                <div class="col-7">
+                    <select class="form-control custom-select form-control-sm d-block w-100" asp-for="Termreg.ClassesInSchoolId" asp-items=" @Model.ViewSelectModel.Class">
+                        <option disabled selected>---Select Class---</option>
+                    </select>
+                    <span asp-validation-for="Termreg.ClassesInSchoolId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="Termreg.SubClassId" class="col-3 col-form-label">Sub Class</label>
+                <div class="col-md-7">
+                    <select asp-for="Termreg.SubClassId" class="form-control  form-control-sm custom-select d-block w-100" asp-items="@Model.ViewSelectModel.SubClass">
+                        <option value="" disabled selected>---Select Sub-Class---</option>
+                    </select>
+                    <span asp-validation-for="Termreg.SubClassId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="@Model.StudentFullname" class="col-3 col-form-label">Student Full Name</label>
+                <div class="col-7">
+                    <input readonly asp-for="@Model.StudentFullname" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="@Model.StudentRegNo" class="col-3 col-form-label">Student Reg. Number</label>
+                <div class="col-7">
+                    <input readonly asp-for="@Model.StudentRegNo" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-4 col-form-label"></label>
+                <div class="col-8">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <input type="submit" class="btn btn-primary btn-sm" value="Update Term Registration" />
+                </div>
+                <div class="col-md-4 text-end">
+                    <a asp-page="Index" class="btn btn-outline-info btn-sm"><i class="fa fa-angle-left"></i>&nbsp; Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" ; />
+}

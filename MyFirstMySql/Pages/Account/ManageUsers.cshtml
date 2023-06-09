@@ -1,0 +1,90 @@
+﻿@page
+@model MyFirstMySql.Pages.Account.ManageUsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+    int i = 0;
+}
+
+<div class="row pt-2">
+    <div class="h3 text-center"><b>Manage Staffs and Teachers Account</b></div>
+</div>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success mt-2 mb-2"><b>@TempData["message"]</b></div>
+}
+<div>
+    @if (Model.ApplicationUser != null)
+    {
+        <table class="table table- table-striped table-bordered table-hover" id="myTable">
+            <thead class="table-Success">
+                <tr>
+                    <th>S/N</th>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Fullname
+                    </th>
+                    <th title="If the Display is false, User can not login to his or her account">
+                        Lock Status
+                    </th>
+                    <th title="Lock and unlock staff"> Action Controls</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ApplicationUser)
+                {
+                    <tr>
+                        <td>@{
+                                i++;
+                            }@i</td>
+                        <td class="prova">@item.UserName</td>
+                        <td class="prova">
+                            @{
+                                string name = item.SurName + ' ' + item.OtherName + ' ' + item.FirstName;
+                            }
+                            @name
+                        </td>
+                        <td class="prova">@item.LockoutEnabled</td>
+                        <td>
+                            @{
+                                string Clazz, Clazz2;
+                                if (item.LockoutEnabled == true)
+                                {
+                                    Clazz = "fa fa-unlock";
+                                    Clazz2 = "btn btn-success m-1";
+                                }
+                                else
+                                {
+                                    Clazz = "fa fa-lock";
+                                    Clazz2 = "btn btn-danger m-1";
+                                }
+
+                                <form method="post">
+                                    <input name="mainid" value="@item.Id" hidden />
+                                    <button class="@Clazz2"><i class="@Clazz"></i></button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    }
+    else
+    {
+        <div class="text-center h3">No Staff Added Yet</div>
+    }
+</div>
+
+
+
+@section Scripts {
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+            $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+        </script>
+}

@@ -1,0 +1,98 @@
+﻿@page
+@model MyFirstMySql.Pages.ComputeResult.ViewResultByStudentModel
+@{
+    ViewData["Title"] = "View Result By Student";
+    int i = 0;
+}
+<div class="d-flex justify-content-between mt-3">
+    <div class=" text-dark text-uppercase"><strong class="h5">Edit Student Result</strong></div>
+    <a class="btn btn-info" asp-page="Index"><i class="fa fa-angle-left"></i>&ensp; Back to List</a>
+</div>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-danger">@TempData["success"]</div>
+}
+@if (Model.Results != null)
+{
+    <div class="container-fluid mt-2">
+        <div class="row card">
+            <div class="col-md-6">
+                <label><strong>Student Reg. Number:</strong> &nbsp; @Model.StudentRegNo</label>
+            </div>
+            <div class="col-md-6">
+                <label><strong>Name:</strong> &nbsp; @Model.fullname</label>
+            </div>
+        </div>
+        <table id="subjectTable" class="table table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Subject</th>
+                    <th>A1</th>
+                    <th>A2</th>
+                    <th>Test</th>
+                    <th>Exams</th>
+                    <th>Total</th>
+                    <th>Session</th>
+                    <th>Term</th>
+                    <th>Class</th>
+                    <th>Sub Class</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Results)
+                {
+                    <tr>
+                        <td>@{
+                                i++;
+                            }@i</td>
+                        <td>
+                            @Html.DisplayFor(k=>item.Subjects.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(k=>item.Assessment1)
+                        </td>
+                        <td>@Html.DisplayFor(k=>item.Assessment2)</td>
+                        <td>
+                            @Html.DisplayFor(k=>item.Test)
+                        </td>
+                        <td>@Html.DisplayFor(k=>item.Examination)</td>
+                        <td>
+                            @Html.DisplayFor(k=>item.Total)
+                        </td>
+                        <td>@Html.DisplayFor(k=>item.SessionYear.Name)</td>
+                        <td>
+                            @Html.DisplayFor(k=>item.Term)
+                        </td>
+                        <td>@Html.DisplayFor(k=>item.ClassesInSchool.ClassName)</td>
+
+                        <td>@Html.DisplayFor(k=>item.SubClasses.ClassName)</td>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-sm btn-info m-2" asp-page="EditResult" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                                <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-sm btn-danger m-2" asp-route-id="@item.Id">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center h3">No Result Avialable</div>
+}
+@section Scripts{
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#subjectTable').DataTable({
+                order: [[3, 'desc']],
+            });
+        });
+    </script>
+}

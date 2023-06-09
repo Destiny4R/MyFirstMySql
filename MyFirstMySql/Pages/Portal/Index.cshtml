@@ -1,0 +1,77 @@
+﻿@page
+@model MyFirstMySql.Pages.Portal.IndexModel
+@{
+    ViewData["Title"] = "Student Result Portal";
+}
+<div class="h4 text center mt3">Welcome To Joy Seconday School Result Printing Portal</div>
+<div class="row">
+    <div class="col-12 col-md-8">
+    </div>
+    <div class="col-6 col-md-4">
+        <form method="post">
+            <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Term</label>
+                        <select asp-for="CTSSClass.Term" class="form-control custom-select d-block w-100">
+                            <option value="" disabled selected>---Select Term---</option>
+                            <option value="First">First</option>
+                            <option value="Second">Second</option>
+                            <option value="Third">Third</option>
+                        </select>
+                        <span asp-validation-for="CTSSClass.Term" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="useremail">Year/Session</label>
+                        <select asp-for="CTSSClass.SessionYear" class="form-control custom-select d-block w-100" asp-items="@Model.ViewSelectModel.SessionYearz">
+                            <option value="" disabled selected>---Select Session/Year---</option>
+                        </select>
+                        <span asp-validation-for="CTSSClass.SessionYear" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="subject">Class</label>
+                        <select class="form-control custom-select d-block w-100" asp-for="CTSSClass.Classes" asp-items="@Model.ViewSelectModel.Class">
+                            <option value="" disabled selected>---Select Class---</option>
+                        </select>
+                        <span asp-validation-for="CTSSClass.Classes" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="">Sub Class</label>
+                            <select asp-for="CTSSClass.Subclass" asp-items="@Model.ViewSelectModel.SubClass" class="form-control custom-select d-block w-100">
+                            <option value="" disabled selected>---Select Sub-Class---</option>
+                        </select>
+                            <span asp-validation-for="CTSSClass.Subclass" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="">Student Reg. Number</label>
+                        <input asp-for="StudentRegNo" class="form-control" />
+                        <span asp-validation-for="StudentRegNo" class="text-danger"></span>
+                    </div>
+                </div>
+                </div>
+            <div>
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["message"]</div>
+                }
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary form-control" formtarget="_blank">Print Result</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
+

@@ -1,0 +1,45 @@
+﻿@page
+@model MyFirstMySql.Pages.TermClassInformation.IndexModel
+@{
+    ViewData["TiTle"] = "General Information List";
+}
+
+<div class="d-flex justify-content-between mt-3">
+    <div class=""><code class="h4">General Information List</code></div>
+    <a class="btn btn-info" asp-page="AddInformation"><i class="fa fa-plus"></i>&ensp; Add General Information</a>
+</div>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
+}@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["error"]
+    </div>
+}
+<div>
+        <table id="subjectTable" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Term</th>
+                    <th>Session/Year</th>
+                    <th>Class</th>
+                    <th>Sub-Class</th>
+                    <th>Next Term Fees</th>
+                    <th>Next Term End</th>
+                    <th>Next Term Start</th>
+                    <th>Total Attendance</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+@section Scripts{
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/js/generalinfoList.js"></script>
+}

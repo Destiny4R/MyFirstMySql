@@ -1,0 +1,149 @@
+﻿@page
+@model MyFirstMySql.Pages.ComputeResult.PositionInSubjectModel
+@{
+    ViewData["Title"] = "Add Position In Subject";
+    int i = 0;
+}
+<div class="d-flex justify-content-between mt-3">
+    <div class="badge bg-gradient-royston"><code class="h4">Compute Student Position</code></div>
+    <div class="d-flex justify-content-between">
+        <a class=" btn btn-gradient-paradise " asp-page="Index">Back to List</a>
+    </div>
+</div>
+<form method="post">
+    <div class="row mt-3">
+        <div class="col-md-2">
+            <div class="form-group">
+                <text>Term</text>
+                <input asp-for="term" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="term" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <text>Session/Year</text>
+                <input asp-for="session" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="session" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <text for="subject">Class</text>
+                <input asp-for="classes" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="classes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <text class="">Sub Class</text>
+                <input asp-for="subclass" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="subclass" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="useremail">Subject</label>
+                <select asp-for="subjectid" class="form-control custom-select" asp-items="Model.Subject">
+                    <option value="" selected disabled>---Select Subject---</option>
+                </select>
+                <span asp-validation-for="subjectid" class="text-danger"></span>
+            </div>
+        </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success mt-2">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+</div>
+</form>
+<form method="post">
+    @if (Model.no > 0)
+    {
+        <div class="row mt-2">
+            <table id="subjectTable" class="table table-striped table-hover table-sm" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead>
+                    <tr>
+                        <th hidden></th>
+                        <th><strong>Subject</strong></th>
+                        <th><strong>Student Reg.</strong></th>
+                        <th><strong>Full Name</strong></th>
+                        <th><strong>Term</strong></th>
+                        <th><strong>Session</strong></th>
+                        <th><strong>Class</strong></th>
+                        <th><strong>Sub Class</strong></th>
+                        <th><strong>Total Scores</strong></th>
+                        <th>Enter Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ResultTablez)
+                    {
+                        <tr>
+                            <td hidden>@Html.DisplayFor(k=>item.Id)</td>
+                            <td>
+                                @Html.DisplayFor(k=>item.Subjects.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(k=>item.TermregistrationTable.ApplicationUser.StudentRegNo)
+                            </td>
+                            <td>
+                                @{
+                                    string full = item.TermregistrationTable.ApplicationUser.SurName + ' ' + item.TermregistrationTable.ApplicationUser.OtherName + ' ' + item.TermregistrationTable.ApplicationUser.FirstName;
+                                }
+                                @full
+                            </td>
+                            <td>@Html.DisplayFor(k=>item.Term)</td>
+                            <td>
+                                @Html.DisplayFor(k=>item.SessionYear.Name)
+                            </td>
+                            <td>@Html.DisplayFor(k=>item.ClassesInSchool.ClassName)</td>
+                            <td>
+                                @Html.DisplayFor(k=>item.SubClasses.ClassName)
+                            </td>
+                            <td>@Html.DisplayFor(k=>item.Total)</td>
+                            <td width="10%">
+                                <input id="Position" type="number" asp-for="@item.Position" class="form-control form-control-sm" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <button id="btnupdate" type="button" class="btn btn-info m-2">
+            <i class="fa fa-save"></i>&nbsp; Update Subject Position
+        </button>
+    }
+    else
+    {
+        <div class="text-center h3">No Result Avialable</div>
+    }
+
+</form>
+@section Scripts {
+    <script type="text/javascript">
+        $("body").on("click", "#btnupdate", function () {
+            //Loop through the Table rows and build a JSON array.
+            var Results = new Array();
+            $("#subjectTable TBODY TR").each(function () {
+                var row = $(this);
+                var result = {};
+                result.Id = row.find("TD").eq(0).html();
+                result.Position = row.find('td:eq(9) input').val();
+                Results.push(result);
+            });
+            var jsonData = {
+                "Results": Results
+            }
+            $.ajax({
+                dataType: 'json',
+                type: 'Post',
+                data: jsonData,
+                url: "/api/UpdatePosition",
+                success: function (r) {
+                    alert(r + " Successfully Updated.");
+                    location.reload();
+                }
+            })
+        });
+    </script>
+}

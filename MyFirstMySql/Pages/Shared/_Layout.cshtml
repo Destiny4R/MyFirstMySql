@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - School Result Port</title>
+
+    <link href="~/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/sweet-alert/sweetalert2.min.css" rel="stylesheet">
+    <link href="~/assets/css/slidebars.min.css" rel="stylesheet">
+    <link href="~/css/toastr.css" rel="stylesheet">
+    <link href="~/assets/css/icons.css" rel="stylesheet">
+    <link href="~/assets/css/menu.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/lib/dataTables/datatables.min.css" rel="stylesheet">
+</head>
+<body class="sticky-header">
+    <section>
+        <!-- sidebar left start-->
+        <div class="sidebar-left" style="background-color:darkseagreen;">
+            <div class="sidebar-left-info">
+
+                <div class="user-box" style="background-color:darkseagreen;">
+                    <div class="d-flex justify-content-center">
+                        <img src="~/assets/images/Logo/joybadge.png" alt="" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="text-center text-white mt-2">
+                        <p class="text-white text-uppercase m-1">JOY SEC SCH.</p>
+                    </div>
+                </div>
+
+                <!--sidebar nav start-->
+                <ul class="side-navigation">
+                    <li>
+                        <h3 class="navigation-title">Navigation</h3>
+                    </li>
+                    <li class="@TempData["class"]">
+                        <a asp-page="/Index"><i class="mdi mdi-gauge"></i> <span>Dashboard</span></a>
+                    </li>
+                    <li class="menu-list">
+                        <a href=""><i class="mdi mdi-buffer"></i> <span>Employees</span></a>
+                        <ul class="child-list text-white">
+                            <li><a asp-page="/Admin/Employees/Index" class="text-white"><i class="fa fa-list-ul"></i>List of Staff</a></li>
+                            <li><a asp-page="/Admin/Employees/AddSystemUser"> Add New Staff</a></li>
+                            <li><a asp-page="/Account/ManageUsers"> Manager System Users</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <a href=""><i class="mdi mdi-buffer"></i> <span>Students</span></a>
+                        <ul class="child-list text-white">
+                            <li><a asp-page="/Admin/Admission/Index" class="text-white"><i class="fa fa-list-ul"></i>List of Students</a></li>
+                            <li><a asp-page="/Admin/Admission/AddNewStudent"> Register Student</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <a href=""><i class="mdi mdi-account"></i> <span>Term Registration</span></a>
+                        <ul class="child-list text-white">
+                            <li><a asp-page="/Admin/TermRegistration/Index" class="text-white"><i class="fa fa-list-ul"></i>Term Reg. List</a></li>
+                            <li><a asp-page="/Admin/TermRegistration/RegisterStudent" class="text-white"><i class="fa fa-list-ul"></i>Add Term Reg</a></li>
+                        </ul>
+                    </li>
+                    <li class="@TempData["class1"]">
+                        <h3 class="navigation-title">Manage Views</h3>
+                    </li>
+                    <li class="menu-list">
+                        <a href="">
+                            <i class="mdi mdi-google-circles-extended @TempData["class1"]"></i> <span>
+                                Manage Views
+                            </span>
+                        </a>
+                        <ul class="child-list">
+                            <li class="@TempData["class1"]"><a class="text-white" asp-page="/Admin/Classes/Index">Manage Classes</a></li>
+                            <li><a asp-page="/Admin/SessionYear/Index">Manage Session/Year</a></li>
+                            <li><a asp-page="/Admin/SubClass/Index">Manage Sub-Class </a></li>
+                            <li><a asp-page="/Admin/Subjects/Index">Manage Subject </a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <a href="javascript:;"><i class="mdi mdi-table"></i> <span>Result Manager</span></a>
+                        <ul class="child-list">
+                            <li><a asp-page="/ComputeResult/Index"> <i class="fa fa-list-ol"></i>&nbsp; Result Page List</a></li>
+                            <li><a asp-page="/ComputeResult/AddResult"> <i class="fa fa-plus-square-o"></i>&nbsp; Add Result</a></li>
+                            <li><a asp-page="/ComputeResult/UploadResult"> <i class="fa fa-plus-square-o"></i>&nbsp; Upload Excel Result</a></li>
+                            <li><a asp-page="/TermClassInformation/Index"> Add General Class Info </a></li>
+                            <li><a asp-page="/Portal/Index"> Print Result </a></li>
+                        </ul>
+                    </li>
+                </ul><!--sidebar nav end-->
+            </div>
+        </div><!-- sidebar left end-->
+        <!-- body content start-->
+        <div class="body-content mb-0">
+            <!-- header section start-->
+            <div class="header-section">
+                <!--logo and logo icon start-->
+                <div class="logo">
+                    <a asp-page="/Index">
+                        <span class="logo-img">
+                            <img src="~/assets/images/Logo/joybadge.png" alt="" height="26">
+                        </span>
+                        <!--<i class="fa fa-maxcdn"></i>-->
+                        <span class="brand-name">JOY SEC. SCH.</span>
+                    </a>
+                </div>
+
+                <!--toggle button start-->
+                <a class="toggle-btn"><i class="ti ti-menu"></i></a>
+                <!--toggle button end-->
+                <!--mega menu start-->
+                <div id="navbar-collapse-1" class="navbar-collapse collapse mega-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Classic dropdown -->
+                        <li class="dropdown">
+                            <a href="javascript:;" class=""> English <i class="mdi mdi-chevron-down"></i> </a>
+                        </li>
+                        <!-- Classic list -->
+                        <li>
+                            <form class="search-content" method="post">
+                                <input type="text" class="form-control mt-3" name="keyword" placeholder="Search...">
+                                <span class="search-button"><i class="ti ti-search"></i></span>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <!--mega menu end-->
+
+                <div class="notification-wrap">
+                    <!--right notification start-->
+                    <div class="right-notification">
+                        <ul class="notification-menu">
+                            <li>
+                                <a href="javascript:;" class="notification" data-toggle="dropdown">
+                                    <i class="mdi mdi-bell-outline"></i>
+                                    <span class="badge badge-success">4</span>
+                                </a>
+                                <ul class="dropdown-menu mailbox dropdown-menu-right">
+                                    <li>
+                                        <div class="drop-title">Notifications</div>
+                                    </li>
+                                    <li class="notification-scroll">
+                                        <div class="message-center">
+                                            <a href="#">
+                                                <div class="user-img">
+                                                    <i class="ti ti-star"></i>
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h6>Jane A. Seward</h6>
+                                                    <span class="mail-desc">Iwon meddle and...</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="text-center bg-light" href="javascript:void(0);">
+                                            <strong>See all notifications</strong>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:;" class="notification" data-toggle="dropdown">
+                                    <i class="mdi mdi-email-outline"></i>
+                                    <span class="badge badge-danger">9</span>
+                                </a>
+                                <ul class="dropdown-menu mailbox dropdown-menu-right">
+                                    <li>
+                                        <div class="drop-title">New Messages 5</div>
+                                    </li>
+                                    <li class="notification-scroll">
+                                        <div class="message-center">
+                                            <a href="#">
+                                                <div class="user-img">
+                                                    <img src="assets/images/users/avatar-2.jpg" alt="user" class="rounded-circle">
+                                                    <span class="profile-status online pull-right"></span>
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h6>Cassie T. Bishop</h6>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:30 AM</span>
+                                                </div>
+                                            </a>
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="text-center bg-light" href="javascript:void(0);"> <strong>See all notifications</strong> </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:;" data-toggle="dropdown">
+                                    <img src="~/assets/images/Logo/joybadge.png" alt="">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-menu">
+                                    <form method="post">
+                                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
+                                        <a class="dropdown-item" asp-page="/Settings/SetClass"><i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
+                                        <a class="dropdown-item" asp-page="/Account/ChangePassword"><i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Change Password</a>
+                                        <button class="dropdown-item" asp-action="Logout" asp-controller="api"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</button>
+                                    </form>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="sb-toggle-right">
+                                    <i class="mdi mdi-apps"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </div><!--right notification end-->
+                </div>
+            </div>
+            <div class="container-fulid">
+                <main role="main" class="page-head mt-3">
+                
+                    @RenderBody()
+                    
+                </main>
+            </div>
+
+            <footer class="border-top footer text-muted">
+                <div class="container text-center">
+                    &copy; 2023 - BSSPRMIS-WEB - <a asp-area="" asp-page="/Privacy">Privacy</a>
+                </div>
+            </footer>
+        </div>
+        <!--end body content-->
+    </section>
+    <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery-migrate.js"></script>
+    <script src="~/assets/js/modernizr.min.js"></script>
+    <script src="~/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/js/slidebars.min.js"></script>
+    <script src="~/assets/plugins/sweet-alert/sweetalert2.min.js"></script>
+
+    <!--app js-->
+    <script src="~/assets/js/jquery.app.js"></script>
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

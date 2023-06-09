@@ -1,0 +1,109 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.TermRegistration.RegisterStudentModel
+@{
+    ViewData["Title"] = "Student Term Registration";
+}
+<form method="post">
+    <div class="container-fluid  mt-2">
+        <div class="h3 text-center">STUDENT TERM REGISTRATION</div>
+        <hr />
+        @if (TempData["success"] != null || TempData["error"] != null)
+        {
+            <div class="alert alert-success">
+                @if (TempData["success"] != null) { @TempData["success"] }
+                else
+                {
+                    @TempData["error"]
+                }
+            </div>
+        }
+        <div class="mt-2">
+            @if (Model.StudentFullname!=string.Empty)
+            {
+            <div class="form-group row">
+                <label asp-for="CTSSClass.Term" class="col-form-label col-md-3"></label>
+                <div class="col-md-7">
+                    <select asp-for="CTSSClass.Term" class="form-control custom-select d-block w-100">
+                        <option value="" disabled selected>---Select Term---</option>
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.Term" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="CTSSClass.SessionYear" class="col-form-label col-sm-3">Session/Year</label>
+                <div class="col-sm-7">
+                        <select class="form-control custom-select d-block w-100" asp-for="CTSSClass.SessionYear" asp-items="@Model.ViewSelectModel.SessionYearz">
+                        <option disabled selected>---Select Session/Year---</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.SessionYear" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="CTSSClass.Classes" class="col-3 col-form-label"></label>
+                <div class="col-7">
+                        <select class="form-control custom-select d-block w-100" asp-for="CTSSClass.Classes" asp-items="@Model.ViewSelectModel.Class">
+                        <option disabled selected>---Select Class---</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.Classes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label asp-for="CTSSClass.Subclass" class="col-3 col-form-label">Sub Class</label>
+                <div class="col-md-7">
+                        <select asp-for="CTSSClass.Subclass" class="form-control custom-select d-block w-100" asp-items="@Model.ViewSelectModel.SubClass">
+                        <option value="" disabled selected>---Select Sub-Class---</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.Subclass" class="text-danger"></span>
+                </div>
+            </div>
+            }
+            <div class="row form-group">
+                <label asp-for="StudentRegNo" class="col-3 col-form-label">Student Reg. Number</label>
+                <div class="col-3">
+                    <input asp-for="StudentRegNo" class="form-control" />
+                    <span asp-validation-for="StudentRegNo" class="text-danger"></span>
+                </div>
+                @if (Model.StudentFullname != "")
+                {
+                    <div class="col-4">
+                        <input readonly asp-for="StudentFullname" class="form-control" />
+                        <span asp-validation-for="StudentFullname" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+            <div class="row form-group">
+                <label class="col-4 col-form-label"></label>
+                <div class="col-8">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    @if (Model.StudentFullname != string.Empty)
+                    {
+                        <button type="submit" asp-page-handler="Save" class="btn btn-primary">
+                            <i class="fa fa-save"></i>
+                            Register Student for the Term
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" asp-page-handler="Search" class="btn btn-info">
+                            <l class="fa fa-search"></l>&ensp;Find
+                        </button>
+                    }
+                </div>
+                <div class="col-md-4 text-end">
+                    <a asp-page="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-return-left"></i> Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" ; />
+}

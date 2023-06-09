@@ -1,0 +1,38 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.Subjects.EditSubjectModel
+@{
+    ViewData["Title"] = "Edit Subject";
+}
+<br />
+<form method="post">
+    <div class="container-fluid">
+        <h3 class="text-center h3">Edit Subject</h3>
+        <br />
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <input asp-for="Subject.Id" hidden />
+                <div class="row">
+                    <label asp-for="Subject.Name" class="col-md-4 h6 text-dark">Subject Name</label>
+                    <div class="col-md-8">
+                        <input asp-for="Subject.Name" class="form-control" />
+                        <span asp-validation-for="Subject.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-4 m-3">
+                        <button type="submit" class="btn btn-primary form-control">Update Subject</button>
+                    </div>
+                    <div class="col-md-4 m-3">
+                        <a asp-page="Index" class="btn btn-outline-secondary form-control">Back to subjects List</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,72 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.Subjects.IndexModel
+@{
+    ViewData["Title"] = "Subject List";
+}
+<br />
+<div class="container-fluid">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-4">
+            <h3><span class="h5 bg-info">Subject List</span></h3>
+        </div>
+        <div class="col-md-4">
+            <a asp-page="AddSubject" class="btn btn-outline-secondary form-control"><i class="fa fa-plus"></i> Add Subject</a>
+        </div>
+    </div>
+    @if(TempData["success"] != null)
+    {
+        <div class="alert alert-success mt-3">
+            @TempData["success"]
+        </div>
+    }
+    @if (Model.no > 0)
+    {
+        <div class="row mt-2">
+            <div class="col-12">
+                <form method="post">
+                        <table id="subjectTable" class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>SubJect Code</th>
+                                    <th>Subject</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Subject)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(k=>item.Id)
+                                        </td>
+                                        <td>@Html.DisplayFor(k=>item.Name)</td>
+                                        <td>
+                                            <a class="btn btn-info btn-sm m-2" asp-page="EditSubject" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
+                                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="btn btn-danger btn-sm m-2" asp-route-id="@item.Id">
+                                                <i class="fa fa-trash text-white"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center h4">
+            No Subject Added Yet
+        </div>
+    }
+</div>
+@section Scripts{
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#subjectTable').DataTable({
+            });
+        });
+    </script>
+}

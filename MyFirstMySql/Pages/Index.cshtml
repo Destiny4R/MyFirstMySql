@@ -1,0 +1,139 @@
+﻿@page
+@model MyFirstMySql.Pages.IndexModel
+@{
+    ViewData["Title"] = "Welcome to Joy Secondary School";
+}
+
+<h3 class="text-center text-uppercase"><strong>WELCOME to joy secondary school result management portal</strong></h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Add System User</div>
+            <div class="btn-group">
+                <a asp-page="/Admin/Employees/AddSystemUser" class="btn  btn-info">
+                    <h4><i class="fa fa-plus"></i></h4>
+                    Add Employee
+                </a>
+                <a asp-page="/Admin/Employees/Index" class="btn btn-light">
+                    <h4 class="mt-1"><i class="fa fa-list"></i></h4>
+                    List Of Employees
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">New Student Admission</div>
+            <div class="btn-group">
+                <a asp-page="/Admin/Admission/AddNewStudent" class="btn btn-success">
+                    <h4><i class="fa fa-plus"></i></h4>
+                    Add Student
+                </a>
+                <a asp-page="/Admin/Admission/Index" class="btn btn-secondary">
+                    <h4><i class="fa fa-home"></i></h4>
+                    List Of Students
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Term Registration</div>
+            <div class="btn-group">
+                <a asp-page="/Admin/TermRegistration/RegisterStudent" class="btn btn-info">
+                    <h4><i class="fa fa-plus"></i></h4>
+                    Student Termly Registration
+                </a>
+                <a asp-page="/Admin/TermRegistration/Index" class="btn btn-primary">
+                    <h4 class="mt-1"><i class="fa fa-home"></i></h4>
+                    List Of Termly Registered Student
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Manage Views</div>
+            <div class="btn-group">
+                <a asp-page="/Admin/SessionYear/Index" class="btn btn-success">
+                    <h4><i class="fa fa-home"></i></h4>
+                    Add Session/Year
+                </a>
+                <a asp-page="/Admin/Classes/Index" class="btn btn-light">
+                    <h4><i class="fa fa-home"></i></h4>
+                    Add Class
+                </a>
+                <a asp-page="/Admin/SubClass/Index" class="btn btn-secondary">
+                    <h4><i class="fa fa-home"></i></h4>
+                    Add Sub-Class
+                </a>
+                <a asp-page="/Admin/Subjects/Index" class="btn btn-danger">
+                    <h4><i class="fa fa-home"></i></h4>
+                    Add Subject
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Result Manager</div>
+            <div class="btn-group">
+                <a asp-page="/ComputeResult/AddResult" class="btn btn-info">
+                    <h4><i class="fa fa-plus"></i></h4>
+                    Add Result
+                </a>
+                <a asp-page="/ComputeResult/UploadResult" class="btn btn-primary">
+                    <h4 class="mt-1"><i class="fa fa-home"></i></h4>
+                    Upload Result via Excel File
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Positions</div>
+            <div class="btn-group">
+                <a asp-page="/ComputeResult/PositionInSubject" class="btn btn-success">
+                    <h4><i class="fa fa-plus"></i></h4>
+                    Add Position In Subject
+                </a>
+                <a asp-page="/ComputeResult/PositionInClass" class="btn btn-secondary">
+                    <h4><i class="fa fa-home"></i></h4>
+                    Add position in Class
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Termly General Information</div>
+            <div class="btn-group">
+                <a asp-page="/TermClassInformation/AddInformation" class="btn btn-info">
+                    <h4><i class="fa fa-plus"></i></h4>
+                    Add Termly General Information
+                </a>
+                <a asp-page="/TermClassInformation/Index" class="btn btn-primary">
+                    <h4 class="mt-1"><i class="fa fa-home"></i></h4>
+                    Termly General Information List
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="h5 text-center">Print Result</div>
+            <div class="btn-group">
+                <a asp-page="/Portal/Index" class="btn btn-secondary">
+                    <h4><i class="fa fa-home"></i></h4>
+                    Print Result
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

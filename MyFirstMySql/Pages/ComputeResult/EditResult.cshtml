@@ -1,0 +1,204 @@
+﻿@page
+@model MyFirstMySql.Pages.ComputeResult.EditResultModel
+@{
+    ViewData["Title"] = "Edit Student Result";
+}
+<div class="text-center">
+    <div class="d-flex justify-content-between mt-3">
+        <div class=" text-dark text-uppercase"><strong class="h5">Edit Student Result</strong></div>
+        <a class="btn btn-info" asp-page="Index"><i class="fa fa-angle-left"></i>&ensp; Back to List</a>
+    </div>
+    @if (TempData["search"] != null)
+    {
+        <div class="alert alert-success mt-2">
+            @TempData["search"]
+        </div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger mt-2">
+            @TempData["error"]
+        </div>
+    }
+    <form method="post">
+        <div class="row mt-3">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <text>Term</text>
+                    <input asp-for="term" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="term" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <text>Session/Year</text>
+                    <input asp-for="session" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="session" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <text for="subject">Class</text>
+                    <input asp-for="classes" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="classes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <text class="">Sub Class</text>
+                    <input asp-for="subclass" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="subclass" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group mt-2">
+                    <input asp-for="StudentRegNo" class="form-control" placeholder="Search reg number" aria-label="Search for..." />
+                    <span class="input-group-append">
+                        <button type="submit" asp-page-handler="Search" class="btn btn-success btn-block">
+                            <l class="fa fa-search"> search</l>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<form method="post">
+    <div class="container-fluid">
+        <div class="h3 text-lg-center">Edit Student Result</div>
+        <input asp-for="ResultExam.Id" hidden />
+        <div class="row">
+            <div class="col-md-6 row form-inline form-group">
+                <label class="col-md-5">Student Reg. Number</label>
+                <div class="col-md-7">
+                    <input asp-for="StudentRegNo" readonly class="form-control editable-disabled" />
+                </div>
+            </div>
+            <div class="col-md-6 row form-inline form-group">
+                <label class="col-md-4">Student Fullname:</label>
+                <div class="col-md-8">
+                    <input asp-for="Fullname" readonly class="form-control editable-disabled" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="useremail">Subject</label>
+                    <select asp-for="ResultExam.SubjectId" class="form-control custom-select" asp-items="Model.Subject">
+                        <option value="" disabled>---Select Subject---</option>
+                    </select>
+                    <span asp-validation-for="ResultExam.SubjectId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="">Asessment One</label>
+                <div>
+                    <input asp-for="ResultExam.Assessment1" onkeyup="sum();" id="a1" class="form-control" required />
+                    <span asp-validation-for="ResultExam.Assessment2" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="">Asessment Two</label>
+                <div>
+                    <input asp-for="ResultExam.Assessment2" onkeyup="sum();" id="a2" class="form-control" required />
+                    <span asp-validation-for="ResultExam.Assessment1" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="" asp-for="ResultExam.Test"></label>
+                <div>
+                    <input asp-for="ResultExam.Test" id="test" onkeyup="sum();" class="form-control" required />
+                    <span asp-validation-for="ResultExam.Test" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="">Exams</label>
+                <div>
+                    <input asp-for="ResultExam.Examination" onkeyup="sum();" id="exam" class="form-control" required />
+                    <span asp-validation-for="ResultExam.Examination" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="">Total Scores</label>
+                <div>
+                    <input asp-for="ResultExam.Total" readonly id="total" class="form-control" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label class="col-md-4">Position</label>
+                <div>
+                    <input asp-for="ResultExam.Position" class="form-control" required />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="col-md-4">Grade</label>
+                <div>
+                    <input asp-for="ResultExam.Grade" readonly id="grade" class="form-control" required />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="col-md-4">Remark</label>
+                <div>
+                    <input asp-for="ResultExam.Remark" readonly id="remark" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 offset-2">
+                <div class="mt-3">
+                    <button class="btn btn-primary form-control" type="submit">
+                        <i class="fa fa-save">&ensp;Update Result</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mt-3">
+                    <a class="btn btn-secondary form-control" asp-page="Index">
+                        <i class="fa fa-angle-left"></i>&nbsp; Back to Index Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function sum() {
+            var A1 = document.getElementById("a1").value;
+            var A2 = document.getElementById("a2").value;
+            var Test = document.getElementById("test").value;
+            var Exams = document.getElementById("exam").value;
+            var sum = Number(A1) + Number(A2) + Number(Test) + Number(Exams);
+            document.getElementById("total").value = sum;
+            if (sum < 40) {
+                document.getElementById("grade").value = 'E';
+                document.getElementById("remark").value = "Poor";
+            }
+            else if (sum < 55) {
+                document.getElementById("grade").value = 'D';
+                document.getElementById("remark").value = "Fair";
+            }
+            else if (sum < 65) {
+                document.getElementById("grade").value = 'C';
+                document.getElementById("remark").value = "Good";
+            }
+            else if (sum > 75) {
+                document.getElementById("grade").value = 'B';
+                document.getElementById("remark").value = "Very Good";
+            }
+            if (sum > 74) {
+                document.getElementById("grade").value = 'A';
+                document.getElementById("remark").value = "Distintction";
+            }
+            if (sum > 100) {
+                document.getElementById("total").value = '';
+                document.getElementById("exam").value = '';
+                return alert('Examination can not be morethan 100, check and try again');
+            }
+        }
+    </script>
+}

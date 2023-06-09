@@ -1,0 +1,37 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.SubClass.AddSubClassModel
+@{
+    ViewData["Title"] = "Add Sub-Class";
+}
+<br />
+<form method="post">
+    <div class="container-fluid">
+        <h3 class="text-center h3">Add Sub-Class</h3>
+        <br />
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+
+                <div class="row">
+                    <label asp-for="subClasses.ClassName" class="col-md-4 h5 text-dark">Sub-Class Name</label>
+                    <div class="col-md-8">
+                        <input asp-for="subClasses.ClassName" class="form-control" />
+                        <span asp-validation-for="subClasses.ClassName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-4 m-3">
+                        <button type="submit" class="btn btn-success form-control">Add Sub-Class</button>
+                    </div>
+                    <div class="col-md-4 m-3">
+                        <a asp-page="Index" class="btn btn-info form-control">Back to Sub-Class List</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

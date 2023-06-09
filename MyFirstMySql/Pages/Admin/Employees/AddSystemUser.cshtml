@@ -1,0 +1,179 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.Employees.AddSystemUserModel
+@{
+    ViewData["Title"] = "Add Staff";
+}
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="h2 text-center"><b>Add a new School Staff</b></div>
+        <hr />
+        <form enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row m-2">
+                <label class="control-label col-md-4">UserName</label>
+                <div class="col-md-8">
+                    <input asp-for="StudentRegVM" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.SurName" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.SurName" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.SurName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.OtherName" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.OtherName" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.OtherName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.FirstName" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.FirstName" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.Gender" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <select asp-for="ApplicationUser.Gender" class="form-control">
+                        <option value="" disabled selected>---Select Gender---</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="ApplicationUser.Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.Passport" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input type="file" name="filephoto" id="Passport" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.DateOfBirth" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.DateOfBirth" type="date" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.PhoneNumber" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.PhoneNumber" type="tel" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.Address" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.Address" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.BloodGroup" class="control-label col-md-4">Blood Group</label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.BloodGroup" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.BloodGroup" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.State" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <select asp-for="ApplicationUser.State" class="form-control">
+                        <option value="" disabled selected>---Select State---</option>
+                        <option value="NatlH-Qtrs">FCT Abuja</option>
+                        <option value="Abia">Abia</option>
+                        <option value="Adamawa">Adamawa</option>
+                        <option value="AkwaIbom">AkwaIbom</option>
+                        <option value="Anambra">Anambra</option>
+                        <option value="Bauchi">Bauchi</option>
+                        <option value="Bayelsa">Bayelsa</option>
+                        <option value="Benue">Benue</option>
+                        <option value="Borno">Borno</option>
+                        <option value="Cross River">Cross River</option>
+                        <option value="Delta">Delta</option>
+                        <option value="Ebonyi">Ebonyi</option>
+                        <option value="Edo">Edo</option>
+                        <option value="Ekiti">Ekiti</option>
+                        <option value="Enugu">Enugu</option>
+                        <option value="Gombe">Gombe</option>
+                        <option value="Imo">Imo</option>
+                        <option value="Jigawa">Jigawa</option>
+                        <option value="Kaduna">Kaduna</option>
+                        <option value="Kano">Kano</option>
+                        <option value="Katsina">Katsina</option>
+                        <option value="Kebbi">Kebbi</option>
+                        <option value="Kogi">Kogi</option>
+                        <option value="Kwara">Kwara</option>
+                        <option value="Lagos">Lagos</option>
+                        <option value="Nasarawa">Nasarawa</option>
+                        <option value="Niger">Niger</option>
+                        <option value="Ogun">Ogun</option>
+                        <option value="Ondo">Ondo</option>
+                        <option value="Osun">Osun</option>
+                        <option value="Oyo">Oyo</option>
+                        <option value="Plateau">Plateau</option>
+                        <option value="Rivers">Rivers</option>
+                        <option value="Sokoto">Sokoto</option>
+                        <option value="Taraba">Taraba</option>
+                        <option value="Yobe">Yobe</option>
+                        <option value="Zamfara">Zamafara</option>
+                    </select>
+                    <span asp-validation-for="ApplicationUser.State" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.LocalGov" class="control-label col-md-4">Local Government</label>
+                <div class="col-md-8">
+                    <input class="form-control" asp-for="ApplicationUser.LocalGov" required />
+                    <span asp-validation-for="ApplicationUser.LocalGov" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.PlaceOfBirth" class="control-label col-md-4">Place Of Birth</label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.PlaceOfBirth" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.PlaceOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.Password" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <input asp-for="ApplicationUser.Password" placeholder="Leave empty if you want to use default password" class="form-control" title="Default paswword: School@12345" />
+                </div>
+            </div>
+            <div class="form-group row m-2">
+                <label asp-for="ApplicationUser.UserRole" class="control-label col-md-4"></label>
+                <div class="col-md-8">
+                    <select asp-for="ApplicationUser.UserRole" class="form-control">
+                        <option value="" disabled selected>---Select User Role---</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Accountant">Accountant</option>
+                        <option value="Exam Officer">Exam Officer</option>
+                    </select>
+                    <span asp-validation-for="ApplicationUser.UserRole" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <input onclick="return ValidateInputtracking()" type="submit" class="btn btn-primary" value="Create" />
+                </div>
+                <div class="col-md-4 text-end">
+                    <a asp-page="Index" class="btn btn-outline-info"><i class="bi bi-arrow-return-left"></i> Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

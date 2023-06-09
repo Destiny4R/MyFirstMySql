@@ -1,0 +1,40 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.Employees.IndexModel
+@{
+    ViewData["Title"] = "Staff List";
+}
+<br />
+<div class="container-fluid">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-4">
+            <h3><span class="badge bg-warning">Staff Management List</span></h3>
+        </div>
+        <div class="col-md-4">
+            <a asp-page="AddSystemUser" class="btn btn-outline-secondary form-control"><i class="typcn typcn-plus "></i> Add Staff</a>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <form method="post">
+                <div class="">
+                    <table id="subjectTable" class="table table-bordered table-responsive-sm table-hover" width="100%">
+                        <thead class="">
+                            <tr>
+                                <th>Surname</th>
+                                <th>First Name</th>
+                                <th>Other Name</th>
+                                <th>UserName</th>
+                                <th>Gender</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/js/employeesTable.js"></script>
+}

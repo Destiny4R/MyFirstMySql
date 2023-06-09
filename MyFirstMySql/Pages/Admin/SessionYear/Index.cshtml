@@ -1,0 +1,92 @@
+﻿@page
+@model MyFirstMySql.Pages.Admin.SessionYear.IndexModel
+@{
+    ViewData["Title"] = "List Of Class";
+    var sn = 0;
+}
+<div class="d-flex justify-content-between mt-3">
+    <div class="h4"> <strong>LIST OF Session/Year</strong></div>
+    <a class="btn btn-info" asp-page="AddSession">
+        <i class="fa fa-plus"></i> &nbsp; Add Session/Year
+    </a>
+</div>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["success"]
+    </div>
+}
+<br />
+<div class="table-responsive">
+    @if (Model.data>0)
+    {
+        <table id="example" class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Session/Year</th>
+                    <th>Action</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SessionYears)
+                {
+                    <tr>
+                        <td>@{
+                                sn++;
+                            }@sn</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <a class="btn btn-sm btn-info m-2" asp-page="EditSession" asp-route-id="@item.Id"><i class="fa fa-pencil-square"></i></a>
+                        </td>
+                        <td>
+                            <form method="post">
+                                <button type="button" class="btn btn-sm btn-danger bg-modal-gred-3 btn-animation" data-animation="jello" data-toggle="modal" data-target="#exampleModal00">
+                                    <l class="fa fa-trash-o"></l>
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal00" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content bg-modal-gred-3">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-success" id="exampleModalLabel"><strong>Delete Warning</strong></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-danger h4">
+                                                You are about to remove this record. Do you wish to continue?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary bnt-sm" data-dismiss="modal">No</button>
+                                                <button type="submit" asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger bnt-sm">Yes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="text-center">
+            <h3>No Class Added Yet</h3>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                order: [[3, 'desc']],
+            });
+        });
+    </script>
+}

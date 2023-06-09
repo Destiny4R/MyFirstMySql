@@ -1,0 +1,156 @@
+﻿@page
+@model MyFirstMySql.Pages.ComputeResult.AddResultModel
+@{
+    ViewData["Title"] = "Compute Result";
+}
+<div class="text-center">
+    <div class="d-flex justify-content-between mt-3">
+        <div class=" text-dark text-uppercase"><strong class="h5">Add Result In Simplify Mode</strong></div>
+        <a class="btn btn-info" asp-page="Index"><i class="fa fa-angle-left"></i>&ensp; Back to List</a>
+    </div>
+    @if(TempData["search"] != null)
+    {
+        <div class="alert alert-success mt-2">
+            @TempData["search"]
+        </div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger mt-2">
+            @TempData["error"]
+        </div>
+    }
+    <form method="post">
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <text>Term</text>
+                    <input asp-for="term" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="term" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <text>Session/Year</text>
+                    <input asp-for="session" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="session" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <text for="subject">Class</text>
+                    <input asp-for="classes" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="classes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <text class="">Sub Class</text>
+                    <input asp-for="subclass" class="form-control form-custom-sm" readonly />
+                    <span asp-validation-for="subclass" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="input-group mt-2">
+                    <input asp-for="StudentRegNo" class="form-control" placeholder="Search reg number" aria-label="Search for..." />
+                    <span class="input-group-append">
+                        <button type="submit" asp-page-handler="Search" class="btn btn-success btn-block">
+                            <l class="fa fa-search"> search</l>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+    @if (Model.Fullname != string.Empty)
+    {
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-4">Full Name</label>
+                    <div class="col-md-8">
+                        <input asp-for="Fullname" readonly class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-4">Student Reg No</label>
+                    <div class="col-md-8">
+                        <input asp-for="StudentRegNo" readonly class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div id='loader' style='display: none;'>
+    <img src='~/dist/img/loader.gif' width="150px" height="150px" style="position:relative; position:absolute; top:50%; left:50%; margin: -50px 0px 0px -50px;">
+</div>
+<br />
+@if (Model.Fullname != string.Empty)
+{
+    <table id="tblCustomers" class="table-bordered" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Asses. 1</th>
+                <th>Asses.2</th>
+                <th>Test</th>
+                <th>Exams</th>
+                <th>Total</th>
+                <th>Grade</th>
+                <th>Remark</th>
+                <th hidden></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <form id="postform">
+                @foreach (var result in Model.ResultTable)
+                {
+                    <tr>
+                        <td>@result.Subjects</td>
+                        <td>@result.Assessment1</td>
+                        <td>@result.Assessment2</td>
+                        <td>@result.Test</td>
+                        <td>@result.Examination</td>
+                        <td>@result.Total</td>
+                        <td>@result.Grade</td>
+                        <td>@result.Remark</td>
+                        <td hidden></td>
+                        <td><input type="button" class="btn btn-danger" value="Remove" onclick="Remove(this)" /></td>
+                    </tr>
+                }
+            </form>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <select class="form-control custom-select d-block w-100" id="subject" asp-items="Model.Subject">
+                        <option  disabled selected>---Select Subject---</option>
+                    </select>
+                </td>
+                <td><input class="form-control" max="10" onkeyup="sum();" type="text" id="asses1" /></td>
+                <td><input class="form-control" max="10" onkeyup="sum();" type="text" id="asses2" /></td>
+                <td><input class="form-control" max="20" onkeyup="sum();" type="text" id="test" /></td>
+                <td><input class="form-control" max="60" onkeyup="sum();" type="text" id="exams" /></td>
+                <td><input class="form-control" max="100" readonly type="text" id="total" /></td>
+                <td><input class="form-control" readonly type="text" id="grade" /></td>
+                <td><input class="form-control" readonly type="text" id="remark" /></td>
+                <td><input class="form-control" asp-for="termreg.Id" id="id" hidden /></td>
+                <td><input type="button" class="btn btn-info" id="btnAdd" value="Add" /></td>
+            </tr>
+        </tfoot>
+    </table>
+    <br />
+    <input type="button" class="btn btn-primary" id="btnSave" value="Save All" />
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/resultComputation.js"></script>
+}

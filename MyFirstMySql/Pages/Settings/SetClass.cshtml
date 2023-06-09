@@ -1,0 +1,68 @@
+﻿@page
+@model MyFirstMySql.Pages.Settings.SetClassModel
+@{
+    ViewData["Title"] = "Settings Class";
+}
+<div class="mt-3">
+    <div class="d-flex justify-content-between mt-3">
+        <div class="h5"><strong>Make Class Settings</strong></div>
+        <a class="btn btn-gradient-info" asp-page="Index"><i class="fa fa-angle-left"></i>&ensp; Back to List</a>
+    </div>
+    @if (TempData["setting"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["setting"]
+        </div>
+    }
+    <form method="post">
+        <div class="row mt-3">
+            <div class="col-md-6 row mb-3">
+                <strong class="col-md-4">Term</strong>
+                <div class="col-md-8">
+                    <select asp-for="CTSSClass.Term" class="form-control custom-select d-block w-100">
+                        <option value="" disabled selected>---Select Term---</option>
+                        <option value="First">First</option>
+                        <option value="Second">Second</option>
+                        <option value="Third">Third</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.Term" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 row mb-3">
+                <strong class="col-md-4" for="useremail">Year/Session</strong>
+                <div class="col-md-8">
+                    <select class="form-control custom-select d-block w-100" asp-for="CTSSClass.SessionYear" asp-items="Model.ViewSelectModel.SessionYearz">
+                        <option value="" disabled selected>---Select Session/Year---</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.SessionYear" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 row mb-3">
+                <strong class="col-md-4" for="subject">Class</strong>
+                <div class="col-md-8">
+                    <select class="form-control custom-select d-block w-100" asp-for="CTSSClass.Classes" asp-items="Model.ViewSelectModel.Class">
+                        <option value="" disabled selected>---Select Class---</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.Classes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 row mb-3">
+                <strong class="col-md-4">Sub Class</strong>
+                <div class="col-md-8">
+                    <select asp-for="CTSSClass.Subclass" class="form-control custom-select d-block w-100" asp-items="Model.ViewSelectModel.SubClass">
+                        <option value="" disabled selected>---Select Sub-Class---</option>
+                    </select>
+                    <span asp-validation-for="CTSSClass.Subclass" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success ml-2">
+                    <l class="fa fa-gears"></l> &nbsp; Save Settings
+                </button>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </form>
+</div>

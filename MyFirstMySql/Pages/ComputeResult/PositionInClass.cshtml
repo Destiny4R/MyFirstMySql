@@ -1,0 +1,166 @@
+﻿@page
+@model MyFirstMySql.Pages.ComputeResult.PositionInClassModel
+@{
+    ViewData["Title"] = "Add Position In Subject";
+    int i = 0;
+}
+<div class="d-flex justify-content-between mt-3">
+    <div class=""><code class="h4">Compute Student Position</code></div>
+    <div class="d-flex justify-content-between">
+        <a class=" btn btn-info" asp-page="Index">
+            <i class="fa fa-angle-left"></i>
+            Back to List
+        </a>
+    </div>
+</div>
+<form method="post">
+    <div class="row mt-3">
+        <div class="col-md-2">
+            <div class="form-group">
+                <text>Term</text>
+                <input asp-for="term" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="term" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <text>Session/Year</text>
+                <input asp-for="session" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="session" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <text for="subject">Class</text>
+                <input asp-for="classes" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="classes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <text class="">Sub Class</text>
+                <input asp-for="subclass" class="form-control form-custom-sm" readonly />
+                <span asp-validation-for="subclass" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>
+@*<form method="post">*@
+
+@if (Model.no > 0)
+{
+    <div class="row mt-2">
+        <table id="positionTable" class="table table-hover" >
+            <thead>
+                <tr>
+                    <th hidden></th>
+                    <th>S/N</th>
+                    <th><strong>Student Reg.</strong></th>
+                    <th><strong>Full Name</strong></th>
+                    <th><strong>Term</strong></th>
+                    <th><strong>Session</strong></th>
+                    <th><strong>Class</strong></th>
+                    <th><strong>Sub Class</strong></th>
+                    <th><strong>Cummulative Scores</strong></th>
+                    <th>Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TermReg)
+                {
+                    <tr>
+                        <td hidden>@Html.DisplayFor(k=>item.Id)</td>
+                        <td>
+                            @{
+                                i++;
+                            }@i
+                        </td>
+                        <td>
+                            @Html.DisplayFor(k=>item.ApplicationUser.StudentRegNo)
+                        </td>
+                        <td>
+                            @{
+                                var full = item.ApplicationUser.SurName + ' ' + item.ApplicationUser.OtherName + ' ' + item.ApplicationUser.FirstName;
+                            }
+                            @full
+                        </td>
+                        <td>@Html.DisplayFor(k=>item.Term)</td>
+                        <td>
+                            @Html.DisplayFor(k=>item.SessionYear.Name)
+                        </td>
+                        <td>@Html.DisplayFor(k=>item.ClassesInSchool.ClassName)</td>
+                        <td>
+                            @Html.DisplayFor(k=>item.SubClasses.ClassName)
+                        </td>
+                        <td>@{
+                                double scores = 0;
+                                var results = Model.ResultTablez.Where(k => k.TermRegId == item.Id).ToList();
+                            foreach (var result in results)
+                            {
+                                scores += result.Total;
+                            }
+                            }
+                            @scores
+                        </td>
+                        <td width="10%">
+                            @{
+                                //var position = "0";
+                                //if (Model.Remark.Count() >0)
+                                //{
+                                //    var outpost = Model.Remark.Where(j => j.TermRegId == item.Id).FirstOrDefault();
+                                //    position = outpost.Position_In_Class;
+                                //}
+                                
+                            }
+                            <input id="Position_In_Class" type="number" class="form-control" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <button id="btnupdate" type="button" class="btn btn-info m-2"><i class="fa fa-save"></i>&ensp;Update Positions</button>
+}
+else
+{
+    <div class="text-center h3">Remark most be Added before computing Positions</div>
+}
+@*</form>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#positionTable').DataTable({
+                order: [[3, 'desc']],
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("body").on("click", "#btnupdate", function () {
+            //Loop through the Table rows and build a JSON array.
+            var Remarks = new Array();
+            $("#positionTable TBODY TR").each(function () {
+                var row = $(this);
+                var remark = {};
+                remark.TermRegId = row.find("TD").eq(0).html();
+                remark.Position_In_Class = row.find('td:eq(9) input').val();
+                Remarks.push(remark);
+            });
+            var jsonData = {
+                "Remarks": Remarks
+            }
+            $.ajax({
+                dataType: 'json',
+                type: 'Post',
+                data: jsonData,
+                url: "/api/UpdatePositionInClass",
+                success: function (r) {
+                    alert(r + " Successfully Updated.");
+                    location.reload();
+                }
+            })
+        });
+    </script>
+  }

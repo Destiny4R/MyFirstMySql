@@ -1,0 +1,88 @@
+﻿@page
+@model MyFirstMySql.Pages.TermClassInformation.AddInformationModel
+@{
+    ViewData["Title"] = "Add Term General Information";
+}
+<div class="d-flex justify-content-between mt-3">
+    <div class=""><code class="h4">Add Term General Information</code></div>
+    <a class="btn btn-info" asp-page="Index"><i class="fa fa-angle-left"></i>&ensp; Back to General Information</a>
+</div>
+<form method="post">
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Term</label>
+                <select asp-for="ClassGeneral.Term" class="form-control custom-select d-block w-100">
+                    <option value="" disabled selected>---Select Term---</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                </select>
+                <span asp-validation-for="ClassGeneral.Term" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="useremail">Year/Session</label>
+                <select asp-for="ClassGeneral.SessionYearId" class="form-control custom-select d-block w-100" asp-items="@Model.ViewSelectModel.SessionYearz">
+                    <option value="" disabled selected>---Select Session/Year---</option>
+                </select>
+                <span asp-validation-for="ClassGeneral.SessionYearId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="subject">Class</label>
+                <select class="form-control custom-select d-block w-100" asp-for="ClassGeneral.ClassesId" asp-items="@Model.ViewSelectModel.Class">
+                    <option value="" disabled selected>---Select Class---</option>
+                </select>
+                <span asp-validation-for="ClassGeneral.ClassesId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="">Sub Class</label>
+                <select asp-for="ClassGeneral.SubClassId" asp-items="@Model.ViewSelectModel.SubClass" class="form-control custom-select d-block w-100">
+                    <option value="" disabled selected>---Select Sub-Class---</option>
+                </select>
+                <span asp-validation-for="ClassGeneral.SubClassId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label asp-for="ClassGeneral.Next_Term_Fees"></label>
+            <input asp-for="ClassGeneral.Next_Term_Fees" class="form-control" />
+            <span asp-validation-for="ClassGeneral.Next_Term_Fees" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="ClassGeneral.NextTermStart"></label>
+            <input asp-for="ClassGeneral.NextTermStart" type="date" class="form-control" />
+            <span asp-validation-for="ClassGeneral.NextTermStart" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <label asp-for="ClassGeneral.ClassTeacher"></label>
+            <input asp-for="ClassGeneral.ClassTeacher" class="form-control" />
+            <span asp-validation-for="ClassGeneral.ClassTeacher" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="ClassGeneral.TermEnd"></label>
+            <input asp-for="ClassGeneral.TermEnd" type="date" class="form-control" />
+            <span asp-validation-for="ClassGeneral.TermEnd" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="ClassGeneral.TotalAttendance"></label>
+            <input asp-for="ClassGeneral.TotalAttendance" class="form-control" />
+            <span asp-validation-for="ClassGeneral.TotalAttendance" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary" type="submit"><i class="fa fa.save"></i> Submit General Info</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
